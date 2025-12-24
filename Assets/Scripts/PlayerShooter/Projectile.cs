@@ -34,12 +34,24 @@ public class Projectile : MonoBehaviour
     //=====================25.12.04 수정============================
     private PooledObject pooled;
 
+    [SerializeField]
+    private int pierceCount = 0; //관통 기능이 기본 0.
+
+    private int remainPierce; //현재 남아있는 관통 카운트.
+
+
     private void Awake()
     {
         pooled = GetComponent<PooledObject>();
+
     }
     //=============================================================
 
+
+    private void OnEnable()
+    {
+        remainPierce = pierceCount;
+    }
 
     // Update is called once per frame
     void Update()
@@ -155,18 +167,29 @@ public class Projectile : MonoBehaviour
         if(damageable != null)
         {
             damageable.ApplyDamage(damage);
-            
-            //========================================25.12.04
-            if (pooled != null)
+
+
+            if (remainPierce <= 0)
             {
-                pooled.Release();
-                return;
+
+                if (pooled != null)
+                {
+
+                    
+                    pooled.Release();
+                    return;
+                    
+                }
+                Destroy(gameObject);
+
             }
-            //========================================
+            else
+            {
+                --remainPierce;
+            }
 
         }
 
-        Destroy(gameObject);
     }
 
     

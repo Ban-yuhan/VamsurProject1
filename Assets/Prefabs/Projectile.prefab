@@ -145,6 +145,8 @@ MonoBehaviour:
   freezeDuration: 3
   owner: {fileID: 0}
   damageType: 0
+  pierceCount: 3
+  hitCooldown: 0.2
 --- !u!58 &269520029097378913
 CircleCollider2D:
   m_ObjectHideFlags: 0
