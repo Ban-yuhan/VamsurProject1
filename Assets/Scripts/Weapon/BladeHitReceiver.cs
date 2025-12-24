@@ -16,7 +16,10 @@ public class BladeHitReceiver : MonoBehaviour
         
         if(enemyHealth != null)
         {
-
+            if(weapon != null)
+            {
+                weapon.TryDealDamage(enemyHealth);
+            }
         }
         
     }
@@ -28,7 +31,10 @@ public class BladeHitReceiver : MonoBehaviour
 
         if (enemyHealth != null)
         {
-
+            if (weapon != null)
+            {
+                weapon.TryDealDamage(enemyHealth);
+            }
         }
     }
 

@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 40536017}
   - component: {fileID: 40536018}
   - component: {fileID: 40536019}
+  - component: {fileID: 40536020}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -535,6 +536,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &40536020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40536000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8c19bb604df6a4dae5c23ef15da25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bladePrefap: {fileID: 5505783549845523869, guid: 0364b3761a55b4041ae65d29a95eb09f, type: 3}
+  bladesCount: 5
+  radius: 2
+  rotationSpeedDeg: 180
+  damage: 2
+  hitCooldownSee: 0.2
 --- !u!1 &173358161
 GameObject:
   m_ObjectHideFlags: 0

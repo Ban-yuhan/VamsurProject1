@@ -12,7 +12,7 @@ public class OrbitingBladesWeapon : MonoBehaviour
     private GameObject bladePrefap;
 
     [SerializeField]
-    private int bladesCount = 5; //생성할 칼날 개수
+    private int bladeCount = 5; //생성할 칼날 개수
 
     [SerializeField]
     private float radius = 2.0f; //칼날을 생성할 플레이어 주위 반경
@@ -35,7 +35,7 @@ public class OrbitingBladesWeapon : MonoBehaviour
         blades.Clear();
         lastHitTimeByTargetId.Clear();
 
-        for(int i = 0; i < bladesCount; ++i)
+        for(int i = 0; i < bladeCount; ++i)
         {
             GameObject blade = Instantiate(bladePrefap, transform.position, Quaternion.identity);
             if(blade != null ) 
@@ -56,7 +56,26 @@ public class OrbitingBladesWeapon : MonoBehaviour
 
     private void Update()
     {
-            
+        if(blades == null || blades.Count == 0)
+        {
+            return;
+        }
+
+        float baseAngle = Time.time * rotationSpeedDeg;
+        float step = 360f / blades.Count; //360도를 기준으로 칼날 간 간격을 계산
+
+        for(int i = 0; i < blades.Count; ++i)
+        {
+            float angleDeg = baseAngle + (step * i); //칼날의 개수만큼 순서대로 시작 각도 계산
+            float angleRad =  angleDeg * Mathf.Deg2Rad; //각도값을 라디안으로 변환
+
+            //칼날의 x, y위치 계산
+            float x = Mathf.Cos(angleRad) * radius;
+            float y = Mathf.Sin(angleRad) * radius;
+
+            Vector3 offset = new Vector3(x, y, 0.0f);
+            blades[i].position = transform.position + offset; //칼날 위치 갱신
+        }
     }
 
 
@@ -75,6 +94,8 @@ public class OrbitingBladesWeapon : MonoBehaviour
                 return;
             }
         }
+
+
 
         lastHitTimeByTargetId[trans] = now;
         enemyHealth.ApplyDamage(damage);
