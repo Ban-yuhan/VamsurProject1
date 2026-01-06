@@ -1,0 +1,97 @@
+PlayerWeaponStatsRuntime 스크립트 수정
+
+변수추가
+
+[SerializeField] private float dashDurationSec = 0.2f; //대시 지속시간
+
+[SerializeField] private float dashDamage = 5.0f; //대시 데미지
+
+[SerializeField] private float boomerangDamage = 5.0f;
+
+[SerializeField] private float boomerangMaxDistance = 6.0f;
+
+
+아래쪽에 함수 추가
+
+public float GetDashDurationSec()
+{
+	return dashDurationSec;
+}
+
+public float GetDashDamage()
+{
+	return dashDamage;
+}
+
+public float GetBoomerangDamage()
+{
+	return boomerangDamage;
+}
+
+public float GetBoomerangMaxDistance()
+{
+	return boomerangMaxDistance;
+}
+
+
+public void AddDashUpgrade(float durationSec, float damage) //지속시간과 데미지를 파라미터로 받음
+{
+	dashDurationSec += durationSec;
+	dashDamage += damage;
+}
+
+public void AddBoomerangUpgrade(float damage, float maxDistance)
+{
+	boomerangMaxDistance += damage;
+	boomerangMaxDistance += maxDistance;
+}
+
+
+
+
+PlayerDash 스크립트 수정
+
+변수 선언
+
+[SerializeField]
+private PlayerWeaponStatsRuntime stats;
+
+Start Dash() 함수 가장 위쪽에 추가
+if(stats == null)
+{
+	return;
+}
+
+dashDurationSec = stats.GetDashDurationSec();
+
+
+
+DashDamagePulse 스크립트 수정
+
+변수추가
+[SerializeField]
+private PlayerWeaponStatsRuntime stats;
+
+ApplyPulseDamage() 함수 수정
+
+가장 위에 추가
+if(stats == null)
+{
+	return;
+}
+
+damage = stats.GetDashDamage();
+
+
+
+
+BoomerangWeapon 스크립트에 수정사항 추가
+
+Data폴더에 Upgrade Definition 추가(복사) → 추가한 4개 항목(대시 지속시간, 대시 데미지, 부메랑 데미지, 부메랑 사거리) 추가
+Unique Id 중복되지않게 변경
+DIsplayName 변경
+희귀도 변경
+증가 수치 지정
+
+
+UpgradePoolPuls에 4칸을 추가해 Definition을 넣어줌. → 총 14개가 되어야함
